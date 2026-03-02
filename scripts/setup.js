@@ -36,6 +36,7 @@ function generateEnvFile(config) {
 
 # Database
 DATABASE_URL="${config.env.databaseUrl}"
+DIRECT_URL="${config.env.databaseUrl}"
 
 # Authentication
 AUTH_SECRET="${config.env.authSecret}"
@@ -534,7 +535,11 @@ async function main() {
       execSync('npm run db:setup', { 
         stdio: 'inherit',
         cwd: path.join(__dirname, '..'),
-        env: { ...process.env, DATABASE_URL: config.env.databaseUrl }
+        env: {
+          ...process.env,
+          DATABASE_URL: config.env.databaseUrl,
+          DIRECT_URL: config.env.databaseUrl,
+        }
       });
       s.stop('Database setup complete');
     } catch (err) {
